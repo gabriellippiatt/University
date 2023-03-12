@@ -1,0 +1,222 @@
+#include <netdb.h>
+#include <pthread.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <ctype.h>
+
+#define MAX_CONNECTIONS 79
+// counter for the ammount of connections to mapper
+int connections = 0;
+// used for multi threading
+static pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+// for strtol
+char* p;
+
+struct AirportStructure {
+    char* idCheck;
+    char** mappings;
+    int inputFD;
+    int airportCounter;
+};
+
+// sorts the array in lexicographical order
+void lexicographical(struct AirportStructure* pointer) {
+    char temp[100];
+
+    // storing strings in the lexicographical order
+    for (int i = 0; i < pointer->airportCounter; ++i) {
+        for (int j = i + 1; j < pointer->airportCounter; ++j) {
+
+            // swapping strings if they are not in the lexicographical order
+            if (strcmp(pointer->mappings[i], pointer->mappings[j]) > 0) {
+                strcpy(temp, pointer->mappings[i]);
+                strcpy(pointer->mappings[i], pointer->mappings[j]);
+                strcpy(pointer->mappings[j], temp);
+            }
+        }
+    }
+}
+
+// checks for a duplicate input ID (0 = no duplicate)
+int duplicate_checker(char* id, struct AirportStructure* pointer) {
+    char* port = (char*)calloc(100, sizeof(char));
+    int dup = 0;
+
+    for (int i = 0; i < pointer->airportCounter; i++) {
+        int len = strlen(pointer->mappings[i]);
+        for (int j = 0; j < len; j++) {
+            port[j] = pointer->mappings[i][j];
+        }
+        if (strcmp(port, id) == 0) {
+            dup = 1;
+        }
+    }
+    return dup;
+}
+
+// check the array for the desired ID and sned the port
+void query_ports(FILE* write, FILE* read, char* fileRead, int len, 
+        struct AirportStructure* pointer) {
+    int search = 0;
+    if (pointer->airportCounter == 0) {
+        fprintf(write, ";\n");
+        fflush(write);
+    } else {
+        for (int i = 1; i < (len - 1); i++) {
+            pointer->idCheck[i - 1] = fileRead[i];
+        }                
+        for (int i = 0; i < pointer->airportCounter; i++) {
+            char* input = (char*)calloc(1000, sizeof(char));
+            input = pointer->mappings[i];
+            char* id = (char*)calloc(1000, sizeof(char));
+            char* portStr = (char*)calloc(1000, sizeof(char));
+            int j = 0;
+            int k = 0;
+
+            for (int i = 0; i < (len - 1); i++) {
+                if (input[i] != ':') {
+                    id[i] = input[i];
+                } else {
+                    j = i;
+                }
+            }
+            for (int m = j + 1; m < 1000; m++) {
+                portStr[k] = input[m];
+                k++;
+            }
+            if (strcmp(id, pointer->idCheck) == 0) {
+                fprintf(write, "%s\n", portStr);
+                fflush(write);
+                search = 0;
+                break;
+            } else {
+                search = 1;
+            }
+        }
+        if (search == 1) {
+            fprintf(write, ";\n");
+            fflush(write);
+        }
+    }
+}
+
+// add mapping
+void add_mapping(int len, char* fileRead, struct AirportStructure* pointer) {
+    char* id = (char*)calloc(100, sizeof(char));
+    char* portStr = (char*)calloc(100, sizeof(char));
+    char* input = (char*)calloc(100, sizeof(char));
+    int j = 0;
+    int k = 0;
+    int digit = 0;
+
+    for (int i = 1; i < (len - 1); i++) {
+        input[i - 1] = fileRead[i];
+    }
+    for (int i = 0; i < (len - 1); i++) {
+        if (input[i] != ':') {
+            id[i] = input[i];
+        } else {
+            j = i;
+            break;
+        }
+    }
+    for (int m = j + 1; m < (len - 2); m++) {
+        portStr[k] = input[m];
+        if (isdigit(portStr[k]) == 0) {
+            digit = 1;
+        }
+        k++;
+    }
+    if (duplicate_checker(id, pointer) == 0 && digit == 0 
+            && (j + 1) < (len - 2)) {
+        pointer->mappings[pointer->airportCounter] = input;
+        pointer->airportCounter += 1;
+    }
+}
+
+// checks the response of the client
+void* response_checker(void* v) {
+    struct AirportStructure* airport = (struct AirportStructure*)v;
+    FILE* write = fdopen(airport->inputFD, "w");
+    int reader = dup(airport->inputFD);
+    FILE* read = fdopen(reader, "r");
+    airport->idCheck = (char*)calloc(100, sizeof(char));
+
+    while (1) {
+        char fileRead[1000];
+        memset(fileRead, 0, 1000);
+        memset(airport->idCheck, 0, strlen(airport->idCheck));
+        fgets(fileRead, 1000, read);
+        pthread_mutex_lock(&mutex);
+        int len = strlen(fileRead);
+
+        if (fileRead[0] == '@' && strlen(fileRead) == 2) {
+            lexicographical(airport);
+            for (int i = 0; i < airport->airportCounter; i++) {
+                fprintf(write, "%s\n", airport->mappings[i]);
+                fflush(write);
+            }
+        } else if (fileRead[0] == '?') {
+            query_ports(write, read, fileRead, len, airport);
+        } else if (fileRead[0] == '!') {
+            add_mapping(len, fileRead, airport);
+        }
+        pthread_mutex_unlock(&mutex);
+    }
+    return 0;
+}
+
+// main function
+int main(int argc, char** argv) {
+    struct AirportStructure* airport;
+    airport = 
+            (struct AirportStructure*)calloc(1, 
+            sizeof(struct AirportStructure));
+    airport->mappings = (char**) calloc(1000, sizeof(char*));
+    // calloc the 2D array
+    for (int i = 0; i < 100; i++) {
+        airport->mappings[i] = (char*) calloc(1000, sizeof(char));
+    }
+
+    airport->airportCounter = 0;
+    struct addrinfo* ai = 0;
+    struct addrinfo hints;
+    memset(&hints, 0, sizeof(struct addrinfo));
+    hints.ai_family = AF_INET;        // IPv4  for generic could use AF_UNSPEC
+    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_flags = AI_PASSIVE;  // Because we want to bind with it    
+    getaddrinfo("localhost", 0, &hints, &ai);  // no particular port
+    int connFD;
+      
+    // create a socket and bind it to a port
+    int serv = socket(AF_INET, SOCK_STREAM, 0); // 0 == use default protocol
+    if (bind(serv, (struct sockaddr*)ai->ai_addr, sizeof(struct sockaddr))) {
+        perror("Binding");
+        return 3;
+    }
+    
+    // Which port did we get?
+    struct sockaddr_in ad;
+    memset(&ad, 0, sizeof(struct sockaddr_in));
+    socklen_t len = sizeof(struct sockaddr_in);
+    if (getsockname(serv, (struct sockaddr*)&ad, &len)) {
+        perror("sockname");
+        return 4;
+    }
+    printf("%u\n", ntohs(ad.sin_port));
+    fflush(stdout);
+    if (listen(serv, MAX_CONNECTIONS)) {
+        perror("Listen");
+        return 4;
+    }
+    while (connFD = accept(serv, 0, 0), connFD >= 0) {
+        pthread_t tid[MAX_CONNECTIONS];
+        airport->inputFD = connFD;
+        pthread_create(&tid[connections], NULL, response_checker, airport);
+        pthread_detach(tid[connections]);
+        connections += 1;
+    }
+    return 0;
+}

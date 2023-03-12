@@ -1,0 +1,463 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h> 
+
+#define WRITE 1
+#define READ 0
+#define INITARG 3
+
+struct GameStructure {
+    char** siteList;
+    char** boardPositions;
+    char* sites;
+    char* pathIn;
+    char* pathOut;
+    char* deckOut;
+    int numChars;
+    int numberOfSites;
+    int playerCount;
+    int currentPlayer;
+};
+
+struct PlayerStructure {
+    int playerID;
+    int playerAtSite;
+    int playerMoney;
+    int playerV1;
+    int playerV2;
+    int playerPoints;
+    int cardA;
+    int cardB;
+    int cardC;
+    int cardD;
+    int cardE;
+};
+
+struct PipingStructure {
+    int* dealerToPlayerPipe;
+    int* playerToDealerPipe;
+    pid_t* processID;
+};
+
+struct PointerStructure {
+    FILE* playerRead;
+    FILE* playerWrite;
+    FILE* dealerRead;
+    FILE* dealerWrite;
+};
+
+// for use with strtol
+char* p;
+
+// function used to read a line from input
+char* read_line(FILE* file) {
+    char* line = malloc(sizeof(char) * 80);
+    int currentPossition = 0;
+    int nextCharacter = 0;
+    int capacity = 80;
+
+    while (1) {
+        nextCharacter = fgetc(file);
+        if (nextCharacter == EOF || nextCharacter == '\n') {
+            line[currentPossition] = '\0';
+            return line;
+        } else {
+            if (currentPossition >= capacity - 3) {
+                capacity = capacity + 80;
+                line = realloc(line, sizeof(char) * capacity);
+            }
+            line[currentPossition++] = (char)nextCharacter;
+        }
+    }
+}
+
+// check that a correct number of args has been given
+void check_args(int argc, char** argv) {
+    if(argc < 4) {
+        fprintf(stderr, "Usage: 2310dealer deck path p1 {p2}\n");
+        exit(1);
+    }
+}
+
+// check for valid path
+void invalid_path(char** argv, char* path, struct GameStructure* game) {
+    // create a for loop that checks for number of sites 
+    //greater than one digit
+    game->pathIn = (char*)calloc(game->numChars, sizeof(char));
+    
+    int numberOfChars = strlen(path);
+
+    char* numSiteChars = (char*)malloc(sizeof(char) * 100);
+
+    for (int i = 0; i < numberOfChars; i++) {
+        if(path[i] != ';') {
+            numSiteChars[i] = path[i]; 
+        } else {
+            break;
+        }
+    }
+    
+    int numSites = strtol(numSiteChars, &p, 10);
+    char* siteNumChar = (char*)malloc(sizeof(char) * 100);
+    sprintf(siteNumChar, "%d", numSites);
+    int siteNumLen = strlen(siteNumChar);
+
+    int totalPathLen = (siteNumLen + 1 + (numSites * 3));
+    game->numChars = totalPathLen;
+    
+    if (numSites < 2) {
+        fprintf(stderr, "Error reading path\n");
+        exit(3);
+    } else if (path[numberOfChars - 3] != ':' && 
+            path[numberOfChars - 2] != ':' && 
+            path[numberOfChars - 1] != '-' && 
+            path[2] != ':' && path[3] != ':' &&
+            path[4] != '-') {
+        fprintf(stderr, "Error reading path\n");
+        exit(3);
+    } else if (numSites == 2) {
+        // need to do a better check than this
+        // need to only save a path within two barriers
+        // there should be a barrier right after the ;
+        // anything after the two barriers should be ignored
+        // check that the number of chars after the ; and including the
+        // barriers is a multiple of 3
+        if (strcmp(path, "2;::-::-") != 0) {
+            fprintf(stderr, "Error reading path\n");
+            exit(3);
+        }
+    }
+    game->pathIn = path;
+}
+
+// deck needs at least 4 cards
+void invalid_deck(char* deck, struct GameStructure* game) {
+    // char representation of the number of cards
+    char* charCards = (char*)malloc(sizeof(char) * 100);
+    
+    for(int i = 0; i < 1000; i++) {
+        if(deck[i] != 'A' || deck[i] != 'B' || deck[i] != 'C' || 
+                deck[i] != 'D' || deck[i] != 'E') {
+            charCards[i] = deck[i];
+        }
+    }
+
+    int numCards = strtol(charCards, &p, 10);
+    char* lenChars = (char*)malloc(sizeof(char) * 100);
+
+    sprintf(lenChars, "%d", numCards);
+    int numLen = strlen(lenChars);
+
+    int lenNum = strlen(lenChars);
+
+    char cards[numCards];
+
+    int counter = 0;
+    for(int i = lenNum; i < (numCards + lenNum); i++) {
+        cards[counter] = deck[i];
+        counter++;
+    }
+
+    for(int i = 0; i < numCards; i++) {
+        if((cards[i] != 'A') && (cards[i] != 'B') && (cards[i] != 'C') && 
+                (cards[i] != 'D') && (cards[i] != 'E')) {
+            fprintf(stderr, "Error reading deck\n");
+            exit(2);
+        }
+    }
+
+    game->deckOut = (char*)malloc(sizeof(char) * (numLen + numCards));
+
+    for(int i = 0; i < (numLen + numCards); i++) {
+        game->deckOut[i] = deck[i];
+    }
+}
+
+// checks the file inputs
+void bad_file(char** argv, struct GameStructure* game) {
+    FILE* fp;
+    char* deck = argv[1];
+    char* path = argv[2];
+    fp = fopen(deck, "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Error reading deck\n");
+        exit(2);
+    } else if (fp != NULL) {
+        char* deckString = (char*)malloc(sizeof(char) * 100);
+        for(int i = 0; i < 1000; i++) {
+            deckString[i] = fgetc(fp);
+        }
+        invalid_deck(deckString, game);
+    }
+    fclose(fp);
+    fp = fopen(path, "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Error reading path\n");
+        exit(3);
+    } else {
+        char* pathInput = (char*)malloc(sizeof(char) * 100);
+        for(int i = 0; i < 1000; i++) {
+            pathInput[i] = fgetc(fp);
+        }
+        invalid_path(argv, pathInput, game);
+    }
+    fclose(fp);
+}
+
+// check if valid player types are given
+void bad_player(int argc, char** argv) {
+    for(int i = 3; i < argc; i++) {
+        int len = strlen(argv[i]);
+        if(argv[i][len - 1] == 'A') {
+            //playerType = "./2310A";
+            //fprintf(stderr, "%s\n", playerType);
+        } else if(argv[i][len - 1] == 'B') {
+            //playerType = "./2310B";
+            //fprintf(stderr, "%s\n", playerType);
+        } else {
+            fprintf(stderr, "Error starting process\n");
+            exit(4);
+        }
+    }
+
+
+}
+
+// store the given player types (not the best way to do it)
+char* get_player_type(int argc, char** argv, 
+        struct GameStructure* game, int player) {
+
+    char* playerType = (char*)malloc(sizeof(char) * 100);
+    char* playerTypeInput = (char*)malloc(sizeof(char) * 100);
+    playerTypeInput = argv[player + 3];
+    int length = strlen(playerTypeInput);
+    if(playerTypeInput[length - 1] == 'A') {
+        playerType = "./2310A";
+        //fprintf(stderr, "%s\n", playerType);
+    } else if(playerTypeInput[length - 1] == 'B') {
+        playerType = "./2310B";
+        //fprintf(stderr, "%s\n", playerType);
+    }
+    return playerType;
+}
+
+// set up all the pipes
+void setting_up_pipes(int argc, char** argv, struct GameStructure* game,
+        struct PipingStructure* piper, struct PointerStructure** pointer) {
+    int numPlayers = (argc - 3);
+    // int suppressStderr[2];
+    // pipe(suppressStderr);
+    // dealer -> player
+    piper->dealerToPlayerPipe = (int*)calloc(2 * numPlayers, sizeof(int));
+    // player -> dealer
+    piper->playerToDealerPipe = (int*)calloc(2 * numPlayers, sizeof(int));
+    // process IDs
+    piper->processID = (pid_t*)malloc(numPlayers * sizeof(pid_t));
+    // create the same number of processes as there are players
+    for(int i = 0; i < numPlayers; i++) {
+        pipe(piper->dealerToPlayerPipe);
+        pipe(piper->playerToDealerPipe);
+        piper->processID[i] = fork();
+        if((piper->processID[i] < 0)) {
+            fprintf(stderr, "Error starting process\n");
+            exit(4);
+        }
+        // code for child process (the players)
+        if(piper->processID[i] == 0) {
+            // closes the write end of the pipe
+            close(piper->dealerToPlayerPipe[WRITE]);
+            // closes the read end of the pipe
+            close(piper->playerToDealerPipe[READ]);
+
+            // dup2(suppressStderr[READ], STDERR_FILENO);
+            // close(suppressStderr[READ]);
+            // dup2(suppressStderr[WRITE], STDERR_FILENO);
+            // close(suppressStderr[WRITE]);
+            // make stdin the read end of the pip
+            dup2(piper->dealerToPlayerPipe[READ], STDIN_FILENO);
+            dup2(piper->playerToDealerPipe[WRITE], STDOUT_FILENO);
+            // number of players stored as a string
+            char* numPlayersChar = (char*)malloc(sizeof(char) * 100);
+            sprintf(numPlayersChar, "%d", numPlayers);
+            // this player id stored as a string
+            char* playerChar = (char*)malloc(sizeof(char) * 100);
+            sprintf(playerChar, "%d", i);
+            char* playerType = get_player_type(argc, argv, game, i);
+            execlp(argv[i + INITARG], playerType, 
+                    numPlayersChar, playerChar, NULL);
+            exit(0);
+        }
+        close(piper->dealerToPlayerPipe[READ]);
+        close(piper->playerToDealerPipe[WRITE]);
+        pointer[i]->dealerWrite = 
+                fdopen(piper->dealerToPlayerPipe[WRITE], "w");
+        pointer[i]->dealerRead = fdopen(piper->playerToDealerPipe[READ], "r");
+    }
+}
+
+// send the path to the player
+void send_path(char** argv, int player, struct GameStructure* game, 
+        struct PipingStructure* piper, struct PointerStructure** pointer) {
+    game->pathOut = (char*)calloc(game->numChars, sizeof(char));
+
+    for(int i = 0; i < game->numChars; i++) {
+        game->pathOut[i] = game->pathIn[i];
+    }
+
+    fprintf(pointer[player]->dealerWrite, "%s\n", game->pathOut);
+    fflush(pointer[player]->dealerWrite);
+}
+
+// stores the path in the struct
+void store_path(char* sites, int numberOfSites, 
+        struct GameStructure* game) {
+    game->siteList = (char**)malloc(sizeof(char*) * (numberOfSites));
+    for (int i = 0; i < numberOfSites; i++) {
+        game->siteList[i] = 
+                (char*)malloc(sizeof(char) * 4);
+    }
+    for (int i = 0; i < numberOfSites; i++) {
+        int k = 0;
+        for (int j = i * 3; j < ((i * 3) + 3); j++) {
+            game->siteList[i][k] = sites[j];
+            k++;
+        }
+    }
+}
+
+// print the sites
+void print_sites(struct GameStructure* game) {
+    char* path = (char*)malloc(sizeof(char) * 100);
+    path = game->pathOut;
+    int length = strlen(path);
+
+    char* numberOfSitesChars = (char*)malloc(sizeof(char) * 100);
+    for (int i = 0; i < length; i++) {
+        if(path[i] != ';') {
+            numberOfSitesChars[i] = path[i]; 
+        } else {
+            break;
+        }
+    }
+
+    int numberOfSites = strtol(numberOfSitesChars, &p, 10);
+    game->numberOfSites = numberOfSites;
+    game->sites = (char*)malloc(sizeof(char) * 100);
+    char* lenChar = (char*)malloc(sizeof(char) * 100);
+    sprintf(lenChar, "%d", numberOfSites);
+    int len = strlen(lenChar);
+
+    int j = 0;
+    for (int i = strlen(numberOfSitesChars) + 1; i < length; i++) {
+        game->sites[j] = path[i];
+        j++;
+    }
+
+    store_path(game->sites, numberOfSites, game);
+
+    j = 0;
+    for (int i = len + 1; i < length; i++) {
+        if ((i - numberOfSites) % 3 == 0) {
+            game->sites[j] = ' ';
+            j++;
+        } else {
+            game->sites[j] = path[i];
+            j++;
+        }
+    }
+
+    fprintf(stderr, "%s\n", game->sites);
+}
+
+// initialises the board where the players move around 
+//(this is underneath the sites)
+void initialise_board(int playerCount,
+        struct GameStructure* game, struct PlayerStructure* play) {
+
+    int numberOfSites = game->numberOfSites;
+    game->boardPositions = (char**)malloc(sizeof(char*) * (playerCount));
+
+    for (int i = 0; i < playerCount; i++) {
+        game->boardPositions[i] = 
+                (char*)malloc(sizeof(char) * numberOfSites);
+    }
+    for (int i = 0; i < playerCount; i++) {
+        for (int j = 0; j < numberOfSites; j++) {
+            game->boardPositions[i][j] = ' ';
+        }
+    }
+    for (int i = 0; i < playerCount; i++) {
+        struct PlayerStructure* currentplayer = &play[i];
+        int playerNumber = ((playerCount - 1) - i);
+        game->boardPositions[i][0] = playerNumber + '0';
+        currentplayer->playerAtSite = 0;
+    }
+    for (int i = 0; i < playerCount; i++) {
+        for (int j = 0; j < numberOfSites; j++) {
+            fprintf(stderr, "%c  ", game->boardPositions[i][j]);
+        }
+        fprintf(stderr, "\n");
+    }
+}
+
+// checks to make sure that the player has been initialised
+void carrot_checker(int player, struct PointerStructure** pointer) {
+    FILE* fp;
+    char response;
+
+    fp = pointer[player]->dealerRead;
+    if(fp == NULL) {
+        fprintf(stderr, "Error starting process\n");
+        exit(4);
+    }
+    response = fgetc(pointer[player]->dealerRead);
+    if (response == '^') {
+        fprintf(stderr, "hell yeah carrot\n");
+    } else {
+        fprintf(stderr, "bummer no carrot\n");
+    }
+}
+
+// main function
+int main(int argc, char** argv) { 
+    check_args(argc, argv);
+    struct GameStructure game;
+    struct PipingStructure piper;
+    struct PointerStructure** pointer;
+    //piper = (struct PipingStructure*)calloc(1, sizeof(struct PipingStruct));
+    
+    pointer = 
+            (struct PointerStructure**)calloc(argc - 3, sizeof(
+            struct PointerStructure*));
+    for(int i = 0; i < argc - 3; i++) {
+        pointer[i] = (struct PointerStructure*)calloc(1, sizeof(
+                struct PointerStructure));
+    }
+
+    int numPlayers = (argc - 3);
+    struct PlayerStructure play[numPlayers];
+
+    bad_file(argv, &game);
+    bad_player(argc, argv);
+    setting_up_pipes(argc, argv, &game, &piper, pointer);
+
+    for(int i = 0; i < numPlayers; i++) {
+        send_path(argv, i, &game, &piper, pointer);
+    }
+    for(int i = 0; i < numPlayers; i++) {
+        carrot_checker(i, pointer);
+    }
+    // initail players have their turns
+
+    // while loop where we check you the next player is. ask them for their turn and then send a hap message
+
+    // need a hap message function
+
+    print_sites(&game);
+    initialise_board(numPlayers, &game, &play[0]);
+    return 0;
+}

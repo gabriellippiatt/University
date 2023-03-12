@@ -1,0 +1,252 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h> 
+
+#define WRITE 1
+#define READ 0
+
+struct GameStructure {
+    char** siteList;
+    char** boardPositions;
+    char* sites;
+    int numberOfSites;
+    int playerCount;
+    int currentPlayer;
+};
+
+struct PlayerStructure {
+    int playerID;
+    int playerAtSite;
+    int playerMoney;
+    int playerV1;
+    int playerV2;
+    int playerPoints;
+    int cardA;
+    int cardB;
+    int cardC;
+    int cardD;
+    int cardE;
+};
+
+struct PipingStructure {
+    int* dealerToPlayerPipe;
+    int* playerToDealerPipe;
+    pid_t* processID;
+    FILE* playerRead;
+    FILE* playerWrite;
+    FILE* dealerRead;
+    FILE* dealerWrite;
+};
+
+char* p;
+
+void check_args(int argc, char** argv) {
+    if(argc < 4) {
+        fprintf(stderr, "Usage: 2310dealer deck path p1 {p2}\n");
+        exit(1);
+    }
+}
+
+void invalid_path(char* path) {
+    // create a for loop that checks for number of sites 
+    //greater than one digit
+    int numberOfChars = strlen(path);
+    char* numSiteChars = (char*)malloc(sizeof(char) * 100);
+    for (int i = 0; i < numberOfChars; i++) {
+        if(path[i] != ';') {
+            numSiteChars[i] = path[i]; 
+        } else {
+            break;
+        }
+    }
+    int numSites = strtol(numSiteChars, &p, 10);
+    
+    if (numSites < 2) {
+        fprintf(stderr, "Error reading path\n");
+        exit(3);
+    } else if (path[numberOfChars - 3] != ':' && 
+            path[numberOfChars - 2] != ':' && 
+            path[numberOfChars - 1] != '-' && 
+            path[2] != ':' && path[3] != ':' &&
+            path[4] != '-') {
+        fprintf(stderr, "Error reading path\n");
+        exit(3);
+    } else if (numSites == 2) {
+        // need to do a better check than this
+        // need to only save a path within two barriers
+        // there should be a barrier right after the ;
+        // anything after the two barriers should be ignored
+        // check that the number of chars after the ; and including the
+        // barriers is a multiple of 3
+        if (strcmp(path, "2;::-::-") != 0) {
+            fprintf(stderr, "Error reading path\n");
+            exit(3);
+        }
+    }
+}
+
+// deck needs at least 4 cards
+void invalid_deck(char* deck) {
+    // char representation of the number of cards
+    char* charCards = (char*)malloc(sizeof(char) * 100);
+
+    for(int i = 0; i < 1000; i++) {
+        if(deck[i] != 'A' || deck[i] != 'B' || deck[i] != 'C' || deck[i] != 'D' || deck[i] != 'E') {
+            charCards[i] = deck[i];
+        }
+    }
+
+    int numCards = strtol(charCards, &p, 10);
+    char* lenChars = (char*)malloc(sizeof(char) * 100);
+    //itoa(numCards, lenChars, 10);
+    sprintf(lenChars, "%d", numCards);
+    int lenNum = strlen(lenChars);
+
+    char cards[numCards];
+
+    int counter = 0;
+    for(int i = lenNum; i < (numCards + lenNum); i++) {
+        cards[counter] = deck[i];
+        counter++;
+    }
+
+    for(int i = 0; i < numCards; i++) {
+        if((cards[i] != 'A') && (cards[i] != 'B') && (cards[i] != 'C') && (cards[i] != 'D') && (cards[i] != 'E')) {
+            fprintf(stderr, "Error reading deck\n");
+            exit(2);
+        }
+    }
+
+}
+
+void bad_file(char** argv) {
+    FILE* fp;
+    char* deck = argv[1];
+    char* path = argv[2];
+    fp = fopen(deck, "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Error reading deck\n");
+        exit(2);
+    } else if (fp != NULL) {
+        char* deckString = (char*)malloc(sizeof(char) * 100);
+        for(int i = 0; i < 1000; i++) {
+            deckString[i] = fgetc(fp);
+        }
+        invalid_deck(deckString);
+    }
+    fclose(fp);
+    fp = fopen(path, "r");
+    if (fp == NULL) {
+        fprintf(stderr, "Error reading path\n");
+        exit(3);
+    } else {
+        char* pathInput = (char*)malloc(sizeof(char) * 100);
+        for(int i = 0; i < 1000; i++) {
+            pathInput[i] = fgetc(fp);
+        }
+        invalid_path(pathInput);
+    }
+    fclose(fp);
+}
+
+char* get_player_type(int argc, char** argv, struct GameStructure* game, int player) {
+    char* playerType = (char*)malloc(sizeof(char) * 100);
+    //int numPlayers = (argc - 3);
+    char* playerTypeInput = (char*)malloc(sizeof(char) * 100);
+    playerTypeInput = argv[player];
+    int length = strlen(playerTypeInput);
+    if(playerTypeInput[length - 1] == 'A') {
+        playerType = "2310A";
+    } else if(playerTypeInput[length - 1] == 'B') {
+        playerType = "2310B";
+    }
+
+    return playerType;
+}
+
+void setting_up_pipes(int argc, char** argv, struct GameStructure* game, struct PlayerStructure* play, struct PipingStructure* piper) {
+    int numPlayers = (argc - 3);
+    int stderrSuppress[2];
+    pipe(stderrSuppress);
+    // dealer -> player
+    piper->dealerToPlayerPipe = (int*)calloc(2 * numPlayers, sizeof(int));
+    // player -> dealer
+    piper->playerToDealerPipe = (int*)calloc(2 * numPlayers, sizeof(int));
+    // process IDs
+    piper->processID = (pid_t*)malloc(numPlayers * sizeof(pid_t));
+
+    // create the same number of processes as there are players
+    for(int i = 0; i < numPlayers; i++) {
+
+        pipe(piper->dealerToPlayerPipe);
+        pipe(piper->playerToDealerPipe);
+
+        if((piper -> processID[i] = fork() < 0)) {
+            fprintf(stderr, "Error starting process\n");
+            exit(4);
+        }
+
+        // code for child process (the players)
+        // child process when ID[0] == 0
+        if(piper->processID[i] == 0) {
+
+            // closes the write end of the pipe
+            close(piper->dealerToPlayerPipe[WRITE]);
+
+            // closes the read end of the pipe
+            close(piper->playerToDealerPipe[READ]);
+
+
+            piper->playerRead = fdopen(piper->dealerToPlayerPipe[READ], "r");
+
+            piper->playerWrite = fdopen(piper->playerToDealerPipe[WRITE], "w");
+
+            // make stdin the read end of the pip
+            dup2(piper->dealerToPlayerPipe[READ], STDIN_FILENO);
+
+            dup2(piper->playerToDealerPipe[WRITE], STDOUT_FILENO);
+
+            dup2(stderrSuppress[READ], STDERR_FILENO);
+            close(stderrSuppress[READ]);
+
+            dup2(stderrSuppress[WRITE], STDERR_FILENO);
+            close(stderrSuppress[WRITE]);
+
+            // number of players stored as a string
+            char* numPlayersChar = (char*)malloc(sizeof(char) * 100);
+            sprintf(numPlayersChar, "%d", numPlayers);
+
+            // this player id stored as a string
+            char* playerChar = (char*)malloc(sizeof(char) * 100);
+            sprintf(playerChar, "%d", i);
+
+            char* playerType = get_player_type(argc, argv, game, i);
+
+            execlp(argv[i + 3], playerType, numPlayersChar, playerChar, NULL);
+
+            exit(0);
+        }
+
+        close(piper->dealerToPlayerPipe[READ]);
+
+        close(piper->playerToDealerPipe[WRITE]);
+
+        piper->dealerWrite = fdopen(piper->dealerToPlayerPipe[WRITE], "w");
+
+        piper->dealerRead = fdopen(piper->playerToDealerPipe[READ], "r");
+    }
+}
+int main(int argc, char** argv) {
+    check_args(argc, argv);
+    bad_file(argv);
+    struct GameStructure game;
+    struct PipingStructure piper;
+    int numPlayers = (argc - 3);
+    struct PlayerStructure play[numPlayers];
+    setting_up_pipes(argc, argv, &game, &play[0], &piper);
+    return 0;
+}

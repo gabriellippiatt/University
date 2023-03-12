@@ -1,0 +1,10 @@
+CFLAGS= -Wall -pedantic -std=c99
+.PHONY: all
+.DEFAULT_GOAL := all
+
+all: 2310A 2310B 
+
+2310A: playerA.c
+	gcc  $(CFLAGS) playerA.c players.c -o 2310A
+2310B: playerB.c
+	gcc  $(CFLAGS) playerB.c players.c -o 2310B

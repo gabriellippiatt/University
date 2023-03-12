@@ -1,0 +1,43 @@
+:: Mo V1 V2 Mo Mo :: 
+1                    
+0                    
+Player 0 Money=10 V1=0 V2=0 Points=0 A=0 B=0 C=0 D=0 E=0
+:: Mo V1 V2 Mo Mo :: 
+1  0                 
+Player 1 Money=7 V1=1 V2=0 Points=0 A=0 B=0 C=0 D=0 E=0
+:: Mo V1 V2 Mo Mo :: 
+   0  1              
+Player 0 Money=10 V1=0 V2=1 Points=0 A=0 B=0 C=0 D=0 E=0
+:: Mo V1 V2 Mo Mo :: 
+      1  0           
+Player 1 Money=7 V1=1 V2=1 Points=0 A=0 B=0 C=0 D=0 E=0
+:: Mo V1 V2 Mo Mo :: 
+         0           
+         1           
+Player 0 Money=13 V1=0 V2=1 Points=0 A=0 B=0 C=0 D=0 E=0
+:: Mo V1 V2 Mo Mo :: 
+            0        
+         1           
+Player 0 Money=16 V1=0 V2=1 Points=0 A=0 B=0 C=0 D=0 E=0
+:: Mo V1 V2 Mo Mo :: 
+               0     
+         1           
+Player 0 Money=19 V1=0 V2=1 Points=0 A=0 B=0 C=0 D=0 E=0
+:: Mo V1 V2 Mo Mo :: 
+         1     0     
+Player 1 Money=10 V1=1 V2=1 Points=0 A=0 B=0 C=0 D=0 E=0
+:: Mo V1 V2 Mo Mo :: 
+            1        
+               0     
+Player 1 Money=10 V1=1 V2=1 Points=0 A=0 B=0 C=0 D=0 E=0
+:: Mo V1 V2 Mo Mo :: 
+                  1  
+               0     
+Player 1 Money=10 V1=1 V2=1 Points=0 A=0 B=0 C=0 D=0 E=0
+:: Mo V1 V2 Mo Mo :: 
+               0  1  
+Player 0 Money=19 V1=0 V2=1 Points=0 A=0 B=0 C=0 D=0 E=0
+:: Mo V1 V2 Mo Mo :: 
+                  0  
+                  1  
+Scores: 1,2

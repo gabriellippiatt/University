@@ -1,0 +1,56 @@
+:: Do :: V2 V1 Ri Ri V2 Ri Do Mo :: 
+2                                   
+1                                   
+0                                   
+Player 0 Money=0 V1=0 V2=0 Points=3 A=0 B=0 C=0 D=0 E=0
+:: Do :: V2 V1 Ri Ri V2 Ri Do Mo :: 
+2  0                                
+1                                   
+Player 1 Money=7 V1=0 V2=0 Points=0 A=0 B=0 C=0 D=0 E=0
+:: Do :: V2 V1 Ri Ri V2 Ri Do Mo :: 
+2  0  1                             
+Player 2 Money=7 V1=0 V2=0 Points=0 A=0 B=0 C=0 D=0 E=0
+:: Do :: V2 V1 Ri Ri V2 Ri Do Mo :: 
+   0  1                             
+      2                             
+Player 0 Money=0 V1=0 V2=0 Points=3 A=0 B=0 C=0 D=0 E=0
+:: Do :: V2 V1 Ri Ri V2 Ri Do Mo :: 
+      1                             
+      2                             
+      0                             
+Player 0 Money=0 V1=0 V2=1 Points=3 A=0 B=0 C=0 D=0 E=0
+:: Do :: V2 V1 Ri Ri V2 Ri Do Mo :: 
+      1  0                          
+      2                             
+Player 2 Money=0 V1=0 V2=0 Points=3 A=0 B=0 C=0 D=0 E=0
+:: Do :: V2 V1 Ri Ri V2 Ri Do Mo :: 
+      1  0                 2        
+Player 1 Money=0 V1=0 V2=0 Points=3 A=0 B=0 C=0 D=0 E=0
+:: Do :: V2 V1 Ri Ri V2 Ri Do Mo :: 
+         0                 2        
+                           1        
+Player 0 Money=0 V1=1 V2=1 Points=3 A=0 B=0 C=0 D=0 E=0
+:: Do :: V2 V1 Ri Ri V2 Ri Do Mo :: 
+            0              2        
+                           1        
+Player 0 Money=0 V1=1 V2=1 Points=3 A=0 B=0 C=0 D=0 E=0
+:: Do :: V2 V1 Ri Ri V2 Ri Do Mo :: 
+                           2     0  
+                           1        
+Player 1 Money=3 V1=0 V2=0 Points=3 A=0 B=0 C=0 D=0 E=0
+:: Do :: V2 V1 Ri Ri V2 Ri Do Mo :: 
+                           2  1  0  
+Player 2 Money=3 V1=0 V2=0 Points=3 A=0 B=0 C=0 D=0 E=0
+:: Do :: V2 V1 Ri Ri V2 Ri Do Mo :: 
+                              1  0  
+                              2     
+Player 2 Money=3 V1=0 V2=0 Points=3 A=0 B=0 C=0 D=0 E=0
+:: Do :: V2 V1 Ri Ri V2 Ri Do Mo :: 
+                              1  0  
+                                 2  
+Player 1 Money=3 V1=0 V2=0 Points=3 A=0 B=0 C=0 D=0 E=0
+:: Do :: V2 V1 Ri Ri V2 Ri Do Mo :: 
+                                 0  
+                                 2  
+                                 1  
+Scores: 5,3,3

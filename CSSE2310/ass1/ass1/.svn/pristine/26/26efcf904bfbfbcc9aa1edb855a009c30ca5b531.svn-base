@@ -1,0 +1,248 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <string.h>
+
+// create a struct for all the global variables
+struct GameStructure {
+    char** boardArray;
+    int rows;
+    int columns;
+};
+
+// this function reads stdin and strores it in an array
+char* read_line(FILE* file) {
+	char* line = malloc(sizeof(char) * 80);
+	int current_position = 0;
+	int next_character = 0;
+	int capacity = 80;
+
+	while (1) {
+		next_character = fgetc(file);
+		if (next_character == EOF || next_character == '\n') {
+			line[current_position] = '\0';
+			return line;
+		} else {
+			if (current_position >= capacity - 3) {
+				capacity = capacity + 80;
+				line = realloc(line, sizeof(char) * capacity);
+			}
+			line[current_position++] = (char)next_character;
+		}
+	}
+}
+
+// this function creates reads and prints the board from a save file
+void print_board(int rows, int columns, FILE *fp, struct GameStructure *pointer) {
+    pointer -> boardArray = (char**)malloc(sizeof(char*) * (rows+1));
+    for (int i = 0; i < rows; i++) {
+        pointer -> boardArray[i] = (char*)malloc(sizeof(char) * ((columns * 2)+1));
+    }
+    
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j <= (columns * 2); j++) {
+            if (i == rows-1 && j == columns*2) {
+                break;
+            }
+            pointer -> boardArray[i][j] = fgetc(fp);
+        }
+    }
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j <=(columns * 2); j++) {
+            printf("%c", pointer -> boardArray[i][j]);
+        }
+    }
+    printf("\n");
+    fclose(fp);
+}
+
+// this function checks all the areas where the players are and adds up their score
+int scoring(char nextplayer, int rows, int columns, struct GameStructure *pointer) {
+    int playerScore = 0;
+    for (int i = 1; i < (rows-1); i++) {
+        for (int j = 2; j < (columns*2)-2; j++) {
+            if (pointer -> boardArray[i][j] == nextplayer) {
+                   playerScore += ((pointer -> boardArray[i][j-1])-'0');
+            }
+        }
+    }
+    return playerScore;
+}
+
+// this function checks if the board is full
+int checkBoard(int rows, int columns, struct GameStructure *pointer) {
+    int counter = 0;
+    for (int i = 1; i < (rows-1); i++) {
+        for (int j = 2; j < (columns*2)-2; j++) {
+            if (pointer -> boardArray[i][j] == '.') {
+                   counter++;
+            }
+        }
+    }
+    if (counter!=0) {
+        return 0; // return 0 if board is not full
+    } else {
+        return 1; // return 1 if board is full
+    }
+}
+
+// this function is for player x's moves
+void humanPlayerMove(char nextplayer, int rows, int columns, struct GameStructure *pointer) {
+    bool validMove = false;
+    char* human_move;
+    int testRow;
+    int testColumn;
+
+    // check whether the move is valid and re-prompt user if not
+    while (!validMove) {
+        printf("%c : (R C)> ", nextplayer);
+        human_move = read_line(stdin);
+        if (strlen(human_move)!=3) {
+            // do nothing
+        } else if ((human_move[0]-'0')%1==0 && (human_move[2]-'0')%1==0) {
+            testRow = human_move[0]-'0';
+            testColumn = ((human_move[2] - '0')*2)+1;
+            if (pointer -> boardArray[testRow][testColumn]=='.') {
+                validMove = true;
+            }
+        } else {
+            memset(human_move,0,strlen(human_move));
+        }
+    }
+
+    // if move is valid place it on the board
+    int row = human_move[0] - '0';
+    int column = ((human_move[2] - '0')*2)+1;
+    pointer -> boardArray[row][column] = nextplayer;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j <=(columns * 2); j++) {
+            printf("%c", pointer -> boardArray[i][j]);
+        }
+    }
+    printf("\n");
+    printf("here\n"); // delete this
+	free(human_move);
+}
+
+// 0 Automated Player
+void zeroPlayerMove(char nextplayer, int rows, int columns, struct GameStructure *pointer) {
+
+    for (int i = 1; i < (rows-1); i++) {
+        for (int j = 2; j < (columns*2)-2; j++) {
+            if (pointer -> boardArray[i][j] == '.') {
+                   pointer -> boardArray[i][j] = nextplayer;
+                   printf("\nHere\n");
+                   break;
+            }
+        }
+    }
+
+    printf("Player %c placed at %d %d\n", nextplayer, rows, columns);
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j <=(columns * 2); j++) {
+            printf("%c", pointer -> boardArray[i][j]);
+        }
+    }
+    printf("\n");
+}
+
+
+// 1 Automated Player
+// void onePlayerMove(){
+
+// }
+
+int main(int argc, char** argv) {
+    FILE *fp;
+    struct GameStructure play;
+    //char* argument;
+    
+    // Exit Status 1
+    if (argc != 4) {
+         printf("Usage: push2310 typeO typeX fname\n");
+         return 1;
+    }
+
+    // argv, [0]-file, [1]- player 1, [2]- player 2, [3]- save file
+    char* filename = argv[3];
+
+    // check for player type
+    char* playerXType = argv[1];
+    //char playerO = argv[2];
+    
+    fp = fopen(filename, "r");
+
+    // Exit Status 4 PRINT TO STDERR -----------------------
+    if (fp == NULL) {
+        printf("No file to load from\n");
+        return 4;
+    }
+
+    // look at the first line and save the dimentions
+    int rows = fgetc(fp) - '0'; // rows
+    fgetc(fp);
+    int columns = fgetc(fp) - '0'; // columns
+    int MAXCHAR = columns * 2;
+    char str[MAXCHAR];
+    fgets(str, MAXCHAR, fp);
+    // look at the second line and save the next player
+    char nextplayer = (char)fgetc(fp);
+    fgets(str, MAXCHAR, fp);
+
+    // initial printing of the board form saved file
+    print_board(rows,columns,fp,&play);
+
+    // alternate between players if board is not full
+    bool boardFull = false;
+    int counter;
+    if (nextplayer == 'X') {
+        counter = 0;
+    } else if (nextplayer == 'O') {
+        counter = 1;
+    }
+    while(!boardFull) {
+        if (counter % 2 == 0) { // player x is when mod = 0
+            if (checkBoard(rows, columns, &play) == 1) {
+                boardFull = true;
+            } else if (playerXType[0] == 'H') {
+                humanPlayerMove(nextplayer,rows,columns,&play);
+                nextplayer = 'O';
+            } else if (playerXType[0] == '0') {
+                zeroPlayerMove(nextplayer, rows, columns, &play);
+                nextplayer = 'O';
+            }
+        } else if (counter % 2 == 1) {
+            if (checkBoard(rows, columns, &play) == 1) {
+                boardFull = true;
+            } else {
+                humanPlayerMove(nextplayer,rows,columns,&play);
+                nextplayer = 'X';
+            }
+        } 
+        counter++;
+    }
+
+    // this checks the score and displays the winner
+    int playerXScore = scoring('X',rows,columns,&play);
+    int playerOScore = scoring('O',rows,columns,&play);
+    char winner;
+    if (playerXScore > playerOScore) {
+        winner = 'X';
+        printf("Winners: %c\n", winner);
+    } else if (playerXScore < playerOScore){
+        winner = 'O';
+        printf("Winners: %c\n", winner);
+    } else {
+        printf("Winners: O X\n");
+    }
+    return 0;
+}
+
+
+// TODO
+
+// 1- valgrind
+// 3- tab should be four spaces. check stlye guide
+// 4- print to standard error
