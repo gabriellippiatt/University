@@ -1,0 +1,7 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../prac_3_partb.srcs/sources_1/new/four_bit_adder.vhd" \
+"../../../../prac_3_partb.srcs/sim_1/new/test_four_bit_adder.vhd" \
+
+# Do not sort compile order
+nosort

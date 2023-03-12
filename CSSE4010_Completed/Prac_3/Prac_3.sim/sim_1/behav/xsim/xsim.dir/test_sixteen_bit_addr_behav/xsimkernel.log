@@ -1,0 +1,7 @@
+Running: xsim.dir/test_sixteen_bit_addr_behav/xsimk.exe -simmode gui -wdb test_sixteen_bit_addr_behav.wdb -simrunnum 0 -socket 64142
+Design successfully loaded
+Design Loading Memory Usage: 5832 KB (Peak: 5832 KB)
+Design Loading CPU Usage: 62 ms
+Simulation completed
+Simulation Memory Usage: 14488 KB (Peak: 14488 KB)
+Simulation CPU Usage: 984 ms

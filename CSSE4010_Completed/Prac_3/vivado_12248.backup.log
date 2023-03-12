@@ -1,0 +1,213 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Sat Sep  4 21:31:53 2021
+# Process ID: 12248
+# Current directory: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent17868 C:\Users\gabri\OneDrive\Desktop\Semester 2 2021\CSSE4010\Prac_3\Prac_3.xpr
+# Log file: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/vivado.log
+# Journal file: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.xpr}
+WARNING: [filemgmt 56-3] Default IP Output Path : Could not find the directory 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.gen/sources_1'.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'C:/Xilinx/Vivado/2020.2/data/ip'.
+open_project: Time (s): cpu = 00:00:20 ; elapsed = 00:00:07 . Memory (MB): peak = 1000.020 ; gain = 0.000
+update_compile_order -fileset sources_1
+launch_simulation
+Command: launch_simulation 
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_sixteen_bit_addr' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.sim/sim_1/behav/xsim'
+"xvhdl --incr --relax -prj test_sixteen_bit_addr_vhdl.prj"
+INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.sim/sim_1/behav/xsim'
+"xelab -wto b30c479174494a11a9c062bb23511abf --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot test_sixteen_bit_addr_behav xil_defaultlib.test_sixteen_bit_addr -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto b30c479174494a11a9c062bb23511abf --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot test_sixteen_bit_addr_behav xil_defaultlib.test_sixteen_bit_addr -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "test_sixteen_bit_addr_behav -key {Behavioral:sim_1:Functional:test_sixteen_bit_addr} -tclbatch {test_sixteen_bit_addr.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+source test_sixteen_bit_addr.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+xsim: Time (s): cpu = 00:00:12 ; elapsed = 00:00:06 . Memory (MB): peak = 1000.020 ; gain = 0.000
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'test_sixteen_bit_addr_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 1000.020 ; gain = 0.000
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run 15 ps
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+launch_simulation
+Command: launch_simulation 
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'test_sixteen_bit_addr' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.sim/sim_1/behav/xsim'
+"xvhdl --incr --relax -prj test_sixteen_bit_addr_vhdl.prj"
+INFO: [VRFC 10-163] Analyzing VHDL file "C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.srcs/sim_1/new/test_sixteen_bit_addr.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'test_sixteen_bit_addr'
+INFO: [USF-XSim-69] 'compile' step finished in '3' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.sim/sim_1/behav/xsim'
+"xelab -wto b30c479174494a11a9c062bb23511abf --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot test_sixteen_bit_addr_behav xil_defaultlib.test_sixteen_bit_addr -log elaborate.log"
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto b30c479174494a11a9c062bb23511abf --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot test_sixteen_bit_addr_behav xil_defaultlib.test_sixteen_bit_addr -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package ieee.std_logic_arith
+Compiling package ieee.std_logic_unsigned
+Compiling architecture behavioral of entity xil_defaultlib.sixteen_bit_addr [sixteen_bit_addr_default]
+Compiling architecture behavioral of entity xil_defaultlib.test_sixteen_bit_addr
+Built simulation snapshot test_sixteen_bit_addr_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '4' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "test_sixteen_bit_addr_behav -key {Behavioral:sim_1:Functional:test_sixteen_bit_addr} -tclbatch {test_sixteen_bit_addr.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+source test_sixteen_bit_addr.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+xsim: Time (s): cpu = 00:00:09 ; elapsed = 00:00:06 . Memory (MB): peak = 1000.020 ; gain = 0.000
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'test_sixteen_bit_addr_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:11 ; elapsed = 00:00:14 . Memory (MB): peak = 1000.020 ; gain = 0.000
+restart
+INFO: [Simtcl 6-17] Simulation restarted
+run 20 ps
+launch_runs synth_1 -jobs 4
+[Sun Sep  5 01:02:03 2021] Launched synth_1...
+Run output will be captured here: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.runs/synth_1/runme.log
+launch_runs impl_1 -jobs 4
+[Sun Sep  5 01:03:33 2021] Launched impl_1...
+Run output will be captured here: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.runs/impl_1/runme.log
+open_run impl_1
+INFO: [Device 21-403] Loading part xc7a100tcsg324-3
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1032.211 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 4 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2020.2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.071 . Memory (MB): peak = 1115.621 ; gain = 0.156
+Restored from archive | CPU: 0.000000 secs | Memory: 0.000000 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.071 . Memory (MB): peak = 1115.621 ; gain = 0.156
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1524.340 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+open_run: Time (s): cpu = 00:00:35 ; elapsed = 00:00:26 . Memory (MB): peak = 1652.773 ; gain = 652.754
+WARNING: [Timing 38-313] There are no user specified timing constraints. Timing constraints are needed for proper timing analysis.
+synth_design -rtl -rtl_skip_mlo -name rtl_1
+Command: synth_design -rtl -rtl_skip_mlo -name rtl_1
+Starting synth_design
+Using part: xc7a100tcsg324-3
+Top: sixteen_bit_addr
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:08 . Memory (MB): peak = 2009.422 ; gain = 232.879
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'sixteen_bit_addr' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.srcs/sources_1/new/sixteen_bit_addr.vhd:49]
+INFO: [Synth 8-256] done synthesizing module 'sixteen_bit_addr' (1#1) [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.srcs/sources_1/new/sixteen_bit_addr.vhd:49]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:10 . Memory (MB): peak = 2064.852 ; gain = 288.309
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:00:11 . Memory (MB): peak = 2082.773 ; gain = 306.230
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:11 . Memory (MB): peak = 2082.773 ; gain = 306.230
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.008 . Memory (MB): peak = 2082.773 ; gain = 0.000
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2174.645 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+RTL Elaboration Complete:  : Time (s): cpu = 00:00:26 ; elapsed = 00:00:20 . Memory (MB): peak = 2259.367 ; gain = 482.824
+4 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:27 ; elapsed = 00:00:20 . Memory (MB): peak = 2259.367 ; gain = 482.824
+open_run synth_1 -name synth_1
+Design is defaulting to impl run constrset: constrs_1
+Design is defaulting to synth run part: xc7a100tcsg324-3
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 2276.344 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 4 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2020.2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2286.352 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+open_run: Time (s): cpu = 00:00:13 ; elapsed = 00:00:08 . Memory (MB): peak = 2380.184 ; gain = 117.020
+report_utilization -name utilization_1
+current_design impl_1
+report_utilization -name utilization_1
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+exit
+INFO: [Common 17-206] Exiting Vivado at Sun Sep  5 01:32:57 2021...

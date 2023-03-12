@@ -1,0 +1,10 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../project_1.srcs/sources_1/new/flip_flop_reg.vhd" \
+"../../../../project_1.srcs/sources_1/new/lock.vhd" \
+"../../../../project_1.srcs/sources_1/new/locktop_async.vhd" \
+"../../../../project_1.srcs/sources_1/new/sev_seg.vhd" \
+"../../../../project_1.srcs/sim_1/new/test_locktop_async.vhd" \
+
+# Do not sort compile order
+nosort

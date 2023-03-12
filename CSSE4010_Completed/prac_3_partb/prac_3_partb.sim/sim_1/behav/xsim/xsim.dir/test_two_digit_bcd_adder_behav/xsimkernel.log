@@ -1,0 +1,7 @@
+Running: xsim.dir/test_two_digit_bcd_adder_behav/xsimk.exe -simmode gui -wdb test_two_digit_bcd_adder_behav.wdb -simrunnum 0 -socket 54663
+Design successfully loaded
+Design Loading Memory Usage: 6252 KB (Peak: 6252 KB)
+Design Loading CPU Usage: 62 ms
+Simulation completed
+Simulation Memory Usage: 14928 KB (Peak: 14928 KB)
+Simulation CPU Usage: 1562 ms

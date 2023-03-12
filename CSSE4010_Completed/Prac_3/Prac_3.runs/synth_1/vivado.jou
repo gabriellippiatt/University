@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Sun Sep  5 01:02:09 2021
+# Process ID: 13760
+# Current directory: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.runs/synth_1
+# Command line: vivado.exe -log sixteen_bit_addr.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source sixteen_bit_addr.tcl
+# Log file: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.runs/synth_1/sixteen_bit_addr.vds
+# Journal file: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/Prac_3/Prac_3.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source sixteen_bit_addr.tcl -notrace

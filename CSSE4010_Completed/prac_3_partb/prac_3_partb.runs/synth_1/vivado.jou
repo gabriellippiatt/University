@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Sun Sep  5 22:20:17 2021
+# Process ID: 18928
+# Current directory: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/prac_3_partb/prac_3_partb.runs/synth_1
+# Command line: vivado.exe -log two_digit_bcd_adder.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source two_digit_bcd_adder.tcl
+# Log file: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/prac_3_partb/prac_3_partb.runs/synth_1/two_digit_bcd_adder.vds
+# Journal file: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/prac_3_partb/prac_3_partb.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source two_digit_bcd_adder.tcl -notrace

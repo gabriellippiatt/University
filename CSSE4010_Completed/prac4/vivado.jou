@@ -1,0 +1,38 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Wed Oct  6 14:03:03 2021
+# Process ID: 14864
+# Current directory: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/prac4
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent17432 C:\Users\gabri\OneDrive\Desktop\Semester 2 2021\CSSE4010\prac4\prac4.xpr
+# Log file: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/prac4/vivado.log
+# Journal file: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/prac4\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/prac4/prac4.xpr}
+update_compile_order -fileset sources_1
+launch_simulation
+source Method2_Test.tcl
+restart
+run 150 ps
+close_sim
+launch_simulation
+source Method2_Test.tcl
+restart
+run all
+restart
+run 150 ps
+run 150 ps
+close_sim
+launch_simulation
+source Method2_Test.tcl
+restart
+run 150 ps
+synth_design -rtl -rtl_skip_mlo -name rtl_1
+reset_run synth_1
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+close_design
+open_run synth_1 -name synth_1
+close_sim

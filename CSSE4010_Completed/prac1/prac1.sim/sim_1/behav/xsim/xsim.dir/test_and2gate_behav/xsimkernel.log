@@ -1,0 +1,7 @@
+Running: xsim.dir/test_and2gate_behav/xsimk.exe -simmode gui -wdb test_and2gate_behav.wdb -simrunnum 0 -socket 54609
+Design successfully loaded
+Design Loading Memory Usage: 5828 KB (Peak: 5828 KB)
+Design Loading CPU Usage: 15 ms
+Simulation completed
+Simulation Memory Usage: 6488 KB (Peak: 6488 KB)
+Simulation CPU Usage: 30 ms

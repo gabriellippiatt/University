@@ -1,0 +1,211 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Sun Aug 22 21:13:16 2021
+# Process ID: 19844
+# Current directory: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.runs/synth_1
+# Command line: vivado.exe -log locktop_async.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source locktop_async.tcl
+# Log file: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.runs/synth_1/locktop_async.vds
+# Journal file: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source locktop_async.tcl -notrace
+Command: synth_design -top locktop_async -part xc7a100tcsg324-3
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 11716
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'locktop_async' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/locktop_async.vhd:49]
+INFO: [Synth 8-3491] module 'flip_flop_reg' declared at 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/flip_flop_reg.vhd:34' bound to instance 'F1' of component 'flip_flop_reg' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/locktop_async.vhd:80]
+INFO: [Synth 8-638] synthesizing module 'flip_flop_reg' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/flip_flop_reg.vhd:41]
+INFO: [Synth 8-256] done synthesizing module 'flip_flop_reg' (1#1) [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/flip_flop_reg.vhd:41]
+INFO: [Synth 8-3491] module 'flip_flop_reg' declared at 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/flip_flop_reg.vhd:34' bound to instance 'F2' of component 'flip_flop_reg' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/locktop_async.vhd:87]
+INFO: [Synth 8-3491] module 'flip_flop_reg' declared at 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/flip_flop_reg.vhd:34' bound to instance 'F3' of component 'flip_flop_reg' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/locktop_async.vhd:95]
+INFO: [Synth 8-3491] module 'flip_flop_reg' declared at 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/flip_flop_reg.vhd:34' bound to instance 'F4' of component 'flip_flop_reg' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/locktop_async.vhd:103]
+INFO: [Synth 8-3491] module 'lock' declared at 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/lock.vhd:36' bound to instance 'L0' of component 'lock' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/locktop_async.vhd:110]
+INFO: [Synth 8-638] synthesizing module 'lock' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/lock.vhd:46]
+INFO: [Synth 8-256] done synthesizing module 'lock' (2#1) [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/lock.vhd:46]
+INFO: [Synth 8-3491] module 'sev_seg' declared at 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/sev_seg.vhd:34' bound to instance 'S1' of component 'sev_seg' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/locktop_async.vhd:121]
+INFO: [Synth 8-638] synthesizing module 'sev_seg' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/sev_seg.vhd:40]
+INFO: [Synth 8-256] done synthesizing module 'sev_seg' (3#1) [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/sev_seg.vhd:40]
+INFO: [Synth 8-3491] module 'sev_seg' declared at 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/sev_seg.vhd:34' bound to instance 'S2' of component 'sev_seg' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/locktop_async.vhd:128]
+INFO: [Synth 8-3491] module 'sev_seg' declared at 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/sev_seg.vhd:34' bound to instance 'S3' of component 'sev_seg' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/locktop_async.vhd:135]
+INFO: [Synth 8-3491] module 'sev_seg' declared at 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/sev_seg.vhd:34' bound to instance 'S4' of component 'sev_seg' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/locktop_async.vhd:142]
+INFO: [Synth 8-256] done synthesizing module 'locktop_async' (4#1) [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/locktop_async.vhd:49]
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-3
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7a100tcsg324-3
+WARNING: [Synth 8-327] inferring latch for variable 'SSDBus_reg' [C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.srcs/sources_1/new/sev_seg.vhd:46]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Registers : 
+	                4 Bit    Registers := 4     
++---Muxes : 
+	  16 Input    7 Bit        Muxes := 4     
+	   7 Input    7 Bit        Muxes := 4     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-----+------+
+|      |Cell |Count |
++------+-----+------+
+|1     |BUFG |     2|
+|2     |LUT4 |    38|
+|3     |LUT5 |     9|
+|4     |LUT6 |     2|
+|5     |FDCE |    16|
+|6     |LDC  |     4|
+|7     |LDP  |    24|
+|8     |IBUF |    11|
+|9     |OBUF |    30|
++------+-----+------+
+
+Report Instance Areas: 
++------+---------+----------------+------+
+|      |Instance |Module          |Cells |
++------+---------+----------------+------+
+|1     |top      |                |   136|
+|2     |  F1     |flip_flop_reg   |    17|
+|3     |  F2     |flip_flop_reg_0 |    16|
+|4     |  F3     |flip_flop_reg_1 |    16|
+|5     |  F4     |flip_flop_reg_2 |    16|
+|6     |  S1     |sev_seg         |     7|
+|7     |  S2     |sev_seg_3       |     7|
+|8     |  S3     |sev_seg_4       |     7|
+|9     |  S4     |sev_seg_5       |     7|
++------+---------+----------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 1000.254 ; gain = 0.000
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 1000.254 ; gain = 0.000
+Synthesis Optimization Complete : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 1000.254 ; gain = 0.000
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1000.254 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 28 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1000.254 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 28 instances were transformed.
+  LDC => LDCE: 4 instances
+  LDP => LDPE: 24 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+29 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 1000.254 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.runs/synth_1/locktop_async.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file locktop_async_utilization_synth.rpt -pb locktop_async_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Sun Aug 22 21:13:42 2021...

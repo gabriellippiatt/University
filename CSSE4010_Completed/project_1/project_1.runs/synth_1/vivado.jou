@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Sun Aug 22 21:13:16 2021
+# Process ID: 19844
+# Current directory: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.runs/synth_1
+# Command line: vivado.exe -log locktop_async.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source locktop_async.tcl
+# Log file: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.runs/synth_1/locktop_async.vds
+# Journal file: C:/Users/gabri/OneDrive/Desktop/Semester 2 2021/CSSE4010/project_1/project_1.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source locktop_async.tcl -notrace

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="impl_1" LaunchPart="xc7a100tcsg324-3" LaunchTime="1629630849">
+  <File Type="BITSTR-BMM" Name="locktop_async_bd.bmm"/>
+  <File Type="OPT-METHODOLOGY-DRC" Name="locktop_async_methodology_drc_opted.rpt"/>
+  <File Type="INIT-TIMING" Name="locktop_async_timing_summary_init.rpt"/>
+  <File Type="ROUTE-PWR" Name="locktop_async_power_routed.rpt"/>
+  <File Type="PA-TCL" Name="locktop_async.tcl"/>
+  <File Type="OPT-TIMING" Name="locktop_async_timing_summary_opted.rpt"/>
+  <File Type="OPT-DCP" Name="locktop_async_opt.dcp"/>
+  <File Type="ROUTE-PWR-SUM" Name="locktop_async_power_summary_routed.pb"/>
+  <File Type="REPORTS-TCL" Name="locktop_async_reports.tcl"/>
+  <File Type="OPT-DRC" Name="locktop_async_drc_opted.rpt"/>
+  <File Type="OPT-HWDEF" Name="locktop_async.hwdef"/>
+  <File Type="PWROPT-DCP" Name="locktop_async_pwropt.dcp"/>
+  <File Type="PWROPT-DRC" Name="locktop_async_drc_pwropted.rpt"/>
+  <File Type="PWROPT-TIMING" Name="locktop_async_timing_summary_pwropted.rpt"/>
+  <File Type="PLACE-DCP" Name="locktop_async_placed.dcp"/>
+  <File Type="PLACE-IO" Name="locktop_async_io_placed.rpt"/>
+  <File Type="PLACE-CLK" Name="locktop_async_clock_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="locktop_async_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="locktop_async_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="locktop_async_control_sets_placed.rpt"/>
+  <File Type="PLACE-SIMILARITY" Name="locktop_async_incremental_reuse_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="locktop_async_incremental_reuse_pre_placed.rpt"/>
+  <File Type="PLACE-TIMING" Name="locktop_async_timing_summary_placed.rpt"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="locktop_async_postplace_pwropt.dcp"/>
+  <File Type="BG-BIN" Name="locktop_async.bin"/>
+  <File Type="POSTPLACE-PWROPT-TIMING" Name="locktop_async_timing_summary_postplace_pwropted.rpt"/>
+  <File Type="PHYSOPT-DCP" Name="locktop_async_physopt.dcp"/>
+  <File Type="PHYSOPT-DRC" Name="locktop_async_drc_physopted.rpt"/>
+  <File Type="BITSTR-MSK" Name="locktop_async.msk"/>
+  <File Type="PHYSOPT-TIMING" Name="locktop_async_timing_summary_physopted.rpt"/>
+  <File Type="ROUTE-ERROR-DCP" Name="locktop_async_routed_error.dcp"/>
+  <File Type="ROUTE-DCP" Name="locktop_async_routed.dcp"/>
+  <File Type="ROUTE-BLACKBOX-DCP" Name="locktop_async_routed_bb.dcp"/>
+  <File Type="ROUTE-DRC" Name="locktop_async_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="locktop_async_drc_routed.pb"/>
+  <File Type="ROUTE-DRC-RPX" Name="locktop_async_drc_routed.rpx"/>
+  <File Type="BITSTR-MMI" Name="locktop_async.mmi"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="locktop_async_methodology_drc_routed.rpt"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="locktop_async_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="locktop_async_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-PWR-RPX" Name="locktop_async_power_routed.rpx"/>
+  <File Type="ROUTE-STATUS" Name="locktop_async_route_status.rpt"/>
+  <File Type="ROUTE-STATUS-PB" Name="locktop_async_route_status.pb"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="locktop_async_timing_summary_routed.rpt"/>
+  <File Type="ROUTE-TIMING-PB" Name="locktop_async_timing_summary_routed.pb"/>
+  <File Type="ROUTE-TIMING-RPX" Name="locktop_async_timing_summary_routed.rpx"/>
+  <File Type="ROUTE-SIMILARITY" Name="locktop_async_incremental_reuse_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="locktop_async_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW" Name="locktop_async_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-BUS-SKEW-PB" Name="locktop_async_bus_skew_routed.pb"/>
+  <File Type="ROUTE-BUS-SKEW-RPX" Name="locktop_async_bus_skew_routed.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="locktop_async_postroute_physopt.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="locktop_async_postroute_physopt_bb.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="locktop_async_timing_summary_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="locktop_async_timing_summary_postroute_physopted.pb"/>
+  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="locktop_async_timing_summary_postroute_physopted.rpx"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="locktop_async_bus_skew_postroute_physopted.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="locktop_async_bus_skew_postroute_physopted.pb"/>
+  <File Type="BG-BIT" Name="locktop_async.bit"/>
+  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="locktop_async_bus_skew_postroute_physopted.rpx"/>
+  <File Type="BITSTR-RBT" Name="locktop_async.rbt"/>
+  <File Type="BITSTR-NKY" Name="locktop_async.nky"/>
+  <File Type="PDI-FILE" Name="locktop_async.pdi"/>
+  <File Type="RCFI_FILE" Name="locktop_async.rcfi"/>
+  <File Type="CFI_FILE" Name="locktop_async.cfi"/>
+  <File Type="RNPI_FILE" Name="locktop_async.rnpi"/>
+  <File Type="NPI_FILE" Name="locktop_async.npi"/>
+  <File Type="RBD_FILE" Name="locktop_async.rbd"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="locktop_async.ltx"/>
+  <File Type="BITSTR-SYSDEF" Name="locktop_async.sysdef"/>
+  <File Type="BG-BGN" Name="locktop_async.bgn"/>
+  <File Type="BG-DRC" Name="locktop_async.drc"/>
+  <File Type="RDI-RDI" Name="locktop_async.vdi"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/flip_flop_reg.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/lock.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/sev_seg.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/locktop_async.vhd">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/flip_flop_reg_sync.vhd">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/locktop_sync.vhd">
+      <FileInfo>
+        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="locktop_async"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2020"/>
+    <Step Id="init_design"/>
+    <Step Id="opt_design"/>
+    <Step Id="power_opt_design"/>
+    <Step Id="place_design"/>
+    <Step Id="post_place_power_opt_design"/>
+    <Step Id="phys_opt_design"/>
+    <Step Id="route_design"/>
+    <Step Id="post_route_phys_opt_design"/>
+    <Step Id="write_bitstream"/>
+  </Strategy>
+</GenRun>
