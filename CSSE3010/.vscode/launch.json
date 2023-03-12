@@ -1,0 +1,37 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		 {
+		 	"name": "Debug Attach (STLink)",
+		 	"type": "csse3010-debug",
+		 	"device": "STM32F429ZI",
+		 	"executable": "/mnt/c/csse3010/stages/s3/main.elf",
+		 	"servertype": "jlink",
+		 	"interface": "swd",
+		 	"serverpath": "/mnt/c/Program Files (x86)/SEGGER/JLink/JLinkGDBServerCL.exe",
+		 	"svdFile": "/mnt/c/csse3010/sourcelib/tools/vscode/STM32F429.svd",
+		 	"request": "attach",
+		 	"gdbPath": "/usr/bin/gdb"
+		},
+		{
+			"name": "Debug Launch (STLink)",
+			"type": "csse3010-debug",
+			"device": "STM32F429ZI",
+			"executable": "/mnt/c/csse3010/stages/s3/main.elf",
+			"servertype": "jlink",
+			"interface": "swd",
+			"serverpath": "/mnt/c/Program Files (x86)/SEGGER/JLink/JLinkGDBServerCL.exe",
+			"svdFile": "/mnt/c/csse3010/sourcelib/tools/vscode/STM32F429.svd",
+			"request": "launch",
+			"gdbPath": "/usr/local/bin/arm-none-eabi-gdb",
+			"armToolchainPath": "/usr/bin/arm-none-eabi-gcc",
+			// "serialNumber": "772448086",
+			"serverArgs": [
+				"-nolocalhostonly"
+			],
+			"host": "130.102.13.103",
+			// "host": "10.89.226.166",
+			"port": "54389"
+		}
+	]
+}

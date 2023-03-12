@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "s4529671_reg_joystick.h": "c",
+        "s4529671_reg_pantilt.h": "c",
+        "s4529671_reg_keypad.h": "c",
+        "main.h": "c"
+    }
+}
