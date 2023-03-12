@@ -1,0 +1,82 @@
+package stops;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+
+public class RoutingTableTest {
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
+
+    @Test
+    public void addNeighbour() {
+    }
+
+    @Test
+    public void addOrUpdateEntry() {
+    }
+
+    @Test
+    public void costTo() {
+    }
+
+    @Test
+    public void getCosts() {
+    }
+
+    @Test
+    public void getStop() {
+    }
+
+    @Test
+    public void nextStop() {
+    }
+
+    @Test
+    public void synchronise() {
+    }
+
+    @Test
+    public void transferEntries() {
+        // create stops
+        Stop A = new Stop("A",0,0);
+        Stop B = new Stop("B",1,1);
+        Stop C = new Stop("C",2,2);
+
+        // create routing tables
+        RoutingTable routingTableA = new RoutingTable(A);
+        RoutingTable routingTableB = new RoutingTable(B);
+
+        // populate Routing Table for A
+        A.addNeighbouringStop(B);
+        A.addNeighbouringStop(C);
+
+        // populate Routing Table for B
+        B.addNeighbouringStop(A);
+
+        // complete transfer
+        routingTableA.transferEntries(B);
+
+        // this is what the resulting table should be
+        RoutingTable routingTableResult = new RoutingTable(B);
+        routingTableResult.addOrUpdateEntry(A, B.distanceTo(A),A);
+        routingTableResult.addOrUpdateEntry(C,B.distanceTo(C),A);
+
+
+
+        // now check if it is right
+        Assert.assertEquals(routingTableResult,routingTableB);
+    }
+
+    @Test
+    public void traverseNetwork() {
+    }
+}

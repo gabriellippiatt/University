@@ -1,0 +1,68 @@
+package stops;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+public class RoutingTableTest {
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
+
+    @Test
+    public void addNeighbour() {
+    }
+
+    @Test
+    public void addOrUpdateEntry() {
+    }
+
+    @Test
+    public void costTo() {
+    }
+
+    @Test
+    public void getCosts() {
+    }
+
+    @Test
+    public void getStop() {
+    }
+
+    @Test
+    public void nextStop() {
+    }
+
+    @Test
+    public void synchronise() {
+    }
+
+    @Test
+    public void transferEntries() {
+        Stop A = new Stop("A",0,0);
+        Stop B = new Stop("B",1,1);
+        Stop C = new Stop("C",2,2);
+        RoutingTable routingTableA = new RoutingTable(A);
+        RoutingTable routingTableB = new RoutingTable(B);
+        // Routing Table for A
+        routingTableA.addOrUpdateEntry(A,0,A);
+        routingTableA.addOrUpdateEntry(B,1,B);
+        routingTableA.addOrUpdateEntry(C,1,C);
+        // Routing Table for B
+        routingTableB.addOrUpdateEntry(B,0,B);
+        routingTableB.addOrUpdateEntry(A,1,A);
+
+        A.getRoutingTable().transferEntries(B);
+    }
+
+    @Test
+    public void traverseNetwork() {
+    }
+}

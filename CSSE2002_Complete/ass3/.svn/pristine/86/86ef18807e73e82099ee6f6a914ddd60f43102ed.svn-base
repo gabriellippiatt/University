@@ -1,0 +1,7 @@
+package stops;
+
+/**
+ * Represents an entry in a routing table.
+ */
+public class RoutingTable {
+}

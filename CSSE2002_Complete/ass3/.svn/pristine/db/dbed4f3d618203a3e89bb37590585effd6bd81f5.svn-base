@@ -1,0 +1,132 @@
+package stops;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.util.List;
+
+
+public class RoutingTableTest {
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
+
+    @Test
+    public void addNeighbour() {
+    }
+
+    @Test
+    public void addOrUpdateEntry() {
+    }
+
+    @Test
+    public void costTo() {
+    }
+
+    @Test
+    public void getCosts() {
+    }
+
+    @Test
+    public void getStop() {
+    }
+
+    @Test
+    public void nextStop() {
+    }
+
+    @Test
+    public void synchronise() {
+    }
+
+    @Test
+    public void transferEntries() {
+        // create stops
+        Stop A = new Stop("A",0,4);
+        Stop B = new Stop("B",0,2);
+        Stop C = new Stop("C",0,0);
+        Stop D = new Stop("D",2,2);
+
+        // populate Routing Table for A
+        A.addNeighbouringStop(B);
+        A.addNeighbouringStop(D);
+        A.getRoutingTable().addOrUpdateEntry(C,
+                A.distanceTo(B)+B.distanceTo(C),B);
+
+        // populate Routing Table for B
+        B.addNeighbouringStop(A);
+        B.addNeighbouringStop(D);
+        B.addNeighbouringStop(C);
+
+        // populate Routing Table for C
+        C.addNeighbouringStop(B);
+        C.addNeighbouringStop(D);
+        // here C takes an inefficient route via D (could save cost going
+        //                                                        via B instead)
+        C.getRoutingTable().addOrUpdateEntry(A,
+                A.distanceTo(D)+D.distanceTo(C),D);
+
+        // populate Routing Table for D
+        D.addNeighbouringStop(A);
+        D.addNeighbouringStop(B);
+        D.addNeighbouringStop(C);
+
+
+        // complete transfer (this should update the table to make C -> A
+        //                                                      more efficient
+        Assert.assertTrue(B.getRoutingTable().transferEntries(C));
+
+        // Check if the transfer was complete
+        Assert.assertEquals(B, C.getRoutingTable().nextStop(A));
+
+        int expected = C.distanceTo(A);
+        int actual = C.getRoutingTable().getCosts().get(A);
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void traverseNetwork() {
+        // create stops
+        Stop A = new Stop("A",0,4);
+        Stop B = new Stop("B",0,2);
+        Stop C = new Stop("C",0,0);
+        Stop D = new Stop("D",2,2);
+
+        // populate Routing Table for A
+        A.addNeighbouringStop(B);
+        A.addNeighbouringStop(D);
+        A.getRoutingTable().addOrUpdateEntry(C,
+                A.distanceTo(B)+B.distanceTo(C),B);
+
+        // populate Routing Table for B
+        B.addNeighbouringStop(A);
+        B.addNeighbouringStop(D);
+        B.addNeighbouringStop(C);
+
+        // populate Routing Table for C
+        C.addNeighbouringStop(B);
+        C.addNeighbouringStop(D);
+        C.getRoutingTable().addOrUpdateEntry(A,
+                A.distanceTo(B)+B.distanceTo(A),B);
+
+        // populate Routing Table for D
+        D.addNeighbouringStop(A);
+        D.addNeighbouringStop(B);
+        D.addNeighbouringStop(C);
+
+        // the traverse network list
+        List<Stop> traverseList = A.getRoutingTable().traverseNetwork();
+
+        Assert.assertTrue(traverseList.contains(A)&&
+                traverseList.contains(B)&& traverseList.contains(C)&&
+                                                    traverseList.contains(D));
+    }
+}
