@@ -15,4 +15,4 @@ Courses contributing to university education
 - CSSE7610 - Concurrency: Theory and Practice
 - ENGG2800 - Team Project I
 - ENGG3800 - Team Project II
-- Hackathon - 2019 Hacathon (UQ Computing Society)
+- Hackathon - 2019 Hackathon (UQ Computing Society)
